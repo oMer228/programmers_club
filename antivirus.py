@@ -5,7 +5,6 @@ import os
 
 
 # Get input a file for Scan
-# scan_file: 
 
 def scan_file(file_path):
     print()
