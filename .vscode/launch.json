@@ -29,7 +29,7 @@
     "compounds": [
         {
             "name": "Server & Client",
-            "configurations": ["Python: Server", "Python: Client"]
+            "configurations": ["Python: Client", "Python: Server"]
         },
         {
             "name": "Server & Test",

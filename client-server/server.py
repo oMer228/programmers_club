@@ -77,11 +77,16 @@ def server():
             # decipher command
             rcv_packet = json.loads(data.decode())
             match rcv_packet["command"].upper():
+
                 # send client file list
                 case "LIST":
+                    # confirm reciept 
+                    sendall(conn, b"200 OK")
+
                     list = os.listdir(repository_dir) 
                     file_list = json.dumps(list)
-                    s.sendall(file_list.encode())
+                    sendall(conn, file_list.encode())
+
 
                 # getting client uploaded file
                 case "UPLOAD":
@@ -90,15 +95,29 @@ def server():
                     
                     # confirm reciept 
                     sendall(conn, b"200 OK")
+                    return True
 
 
                 # sending client requested file
                 case "DOWNLOAD":
+                    # validate input
+
+                    file_full_path = os.path.join(repository_dir, rcv_packet["fname"])
+                    if not os.path.exists(file_full_path):
+                        sendall(conn, b"400 Not found")
+                        return False
+
+                    # confirm reciept 
+                    sendall(conn, b"200 OK")
+
+                    # send file
                     with open(os.path.join(repository_dir, rcv_packet["fname"]), "rb") as file:
                         buffer = file.read()
-                        conn.sendall(buffer) 
+                    sendall(conn, buffer) 
+                    return True
 
 
 
 if __name__ == '__main__':
-    server()
+    while True:
+        server()
