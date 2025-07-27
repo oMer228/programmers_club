@@ -1,0 +1,39 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Server",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/client-server/server.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "Python: Client",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/client-server/client.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "Python: Test",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/client-server/test.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Server & Client",
+            "configurations": ["Python: Server", "Python: Client"]
+        },
+        {
+            "name": "Server & Test",
+            "configurations": ["Python: Server", "Python: Test"]
+        }
+    ]
+}
